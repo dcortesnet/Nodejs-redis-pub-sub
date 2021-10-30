@@ -19,8 +19,13 @@ clientRedis.on('error', err => {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+clientRedis.subscribe('user-notify');
+clientRedis.on('message', (channel, message)=> {
+  console.log('Received data : ' + message);
+});
+
 app.get('/', (req, res) => {
-  return res.send('Hello world');
+  return res.send('Server sub');
 });
 
 app.listen(3002, () => {

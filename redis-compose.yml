@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  db:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_volumen:/bitnami/redis/data
+volumes:
+  redis_volumen:
+# docker-compose -f redis.yml up
+# docker-compose -f redis.yml down

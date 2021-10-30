@@ -45,8 +45,19 @@ $ npm run dev
 * Levantar los 2 servidores y redis
 
 ```
-//TODO
+docker-compose up
+docker-compose down
 ```
+
+## Endpoints
+
+| Servicio | Puerto | Descripción |
+|:--------|:--------|:--------|
+|`Redis` | 6379 |  Redis channel
+|`Servicio pub` | 3001 | Servicio de publicación |
+|`Servicio sub` | 3002 | Servicio de suscripción |
+
+NOTA: Realizar petición GET a `Servicio pub` en /
 
 ## Equipo
 
