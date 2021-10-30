@@ -1,0 +1,29 @@
+image: node:14
+
+stages:
+  - install
+  - unit_testing
+
+install:
+  stage: install
+  script:
+    - npm install
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules/
+  cache:
+    paths:
+      - node_modules/
+
+unit_testing:
+  stage: unit_testing
+  dependencies:
+    - install
+  script:
+    - npm run test:cov
+  coverage: '/Stmts.*?(\d+(?:\.\d+)?)%/'
+  artifacts:
+    untracked: true
+    paths:
+      - coverage/
