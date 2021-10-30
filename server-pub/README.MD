@@ -23,6 +23,12 @@ Ejecutar `npm run dev` para un servidor de desarrollo. Navega a `http://localhos
 $ npm run dev
 ```
 
+## Docker compose
+
+```
+docker-compose up
+docker-compose down
+```
 ## Equipo
 
 Desarrollado por Diego Cortés
