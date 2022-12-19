@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_volumen:/bitnami/redis/data
+
+  server_pub:
+    build: ./server-pub
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redis
+
+  server_sub:
+    build: ./server-sub
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+    ports:
+      - "3002:3002"
+    depends_on:
+      - redis
+
+volumes:
+  redis_volumen:
