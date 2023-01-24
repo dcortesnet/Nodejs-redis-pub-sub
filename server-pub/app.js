@@ -20,11 +20,19 @@ clientRedis.on('error', (err) => {
 
 app.post('/messages', (req, res) => {
   try {
+
+    if (!req.body.message) {
+      return res.status(400).json({
+        detail: "The message property is required"
+      });
+    }
+
     const message = {
       id: v4(),
       message: req.body.message,
       date: new Date(),
     };
+
     clientRedis.publish('message-channel', JSON.stringify(message));
     console.log(`Publishing an Event using Redis to :${req.body.message}`);
     return res.json({
