@@ -15,8 +15,8 @@ docker-compose down
 
 | Service | Method | Endpoint | body | Description
 |:--------|:--------|:--------|:--------| :--------|
-|`Service pub` | POST |http://localhost:3001/messages | {message: "Hello world"} | Create new resource
-|`Service sub` | GET | http://localhost:3002/messages |  | Get all resources
+|`Service pub` | POST |http://localhost:3000/messages | {message: "Hello world"} | Create new resource
+|`Service sub` | GET | http://localhost:3001/messages |  | Get all resources
 
 ## Team
 

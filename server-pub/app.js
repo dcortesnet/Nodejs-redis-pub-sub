@@ -1,22 +1,15 @@
 const express = require('express');
 const redis = require('redis');
-const dotenv = require('dotenv');
 const { v4 } = require('uuid');
 const app = express();
+const PORT = 3000;
+const nameChannel = "message-channel";
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-dotenv.config();
 
-const clientRedis = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: Number(process.env.REDIS_PORT),
-  password: process.env.REDIS_PASSWORD,
-});
-
-clientRedis.on('error', (err) => {
-  console.log('Redis error', err);
-});
+const redisClient = redis.createClient({ url: "redis://localhost:6379" });
+redisClient.on('error', err => console.log('Redis Client Error', err));
 
 app.post('/messages', (req, res) => {
   try {
@@ -33,7 +26,7 @@ app.post('/messages', (req, res) => {
       date: new Date(),
     };
 
-    clientRedis.publish('message-channel', JSON.stringify(message));
+    redisClient.publish(nameChannel, JSON.stringify(message));
     console.log(`Publishing an Event using Redis to :${req.body.message}`);
     return res.json({
       detail: 'Publishing an Event using Redis successful',
@@ -41,10 +34,13 @@ app.post('/messages', (req, res) => {
   } catch (error) {
     return res.status(500).json({
       detail: error.message
-    })
+    });
   }
 });
 
-app.listen(3001, () => {
-  console.log("Server running port 3001");
+redisClient.connect().then(() => {
+  console.log("Redis connected")
+  app.listen(PORT, () => {
+    console.log(` 😀 server on port ${PORT}  `);
+  });
 });
