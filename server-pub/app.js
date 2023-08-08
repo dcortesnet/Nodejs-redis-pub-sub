@@ -14,7 +14,7 @@ redisClient.on('error', err => console.log('Redis Client Error', err));
 app.post('/messages', (req, res) => {
   try {
 
-    if (!req.body.message) {
+    if (!req.body?.message) {
       return res.status(400).json({
         detail: "The message property is required"
       });
