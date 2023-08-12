@@ -16,7 +16,7 @@ services:
       REDIS_PORT: 6379
       REDIS_PASSWORD: ""
     ports:
-      - "3001:3001"
+      - "3000:3000"
     depends_on:
       - redis
 
@@ -27,7 +27,7 @@ services:
       REDIS_PORT: 6379
       REDIS_PASSWORD: ""
     ports:
-      - "3002:3002"
+      - "3001:3001"
     depends_on:
       - redis
 
